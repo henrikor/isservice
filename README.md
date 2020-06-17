@@ -1,0 +1,3 @@
+# isservice
+
+Go module isservice
