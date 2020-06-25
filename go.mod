@@ -1,4 +1,4 @@
-module git.infosynergi.no/fraggle-rock/isservice
+module git.infosynergi.no/go-modules/isservice
 
 go 1.14
 
