@@ -1,4 +1,4 @@
-module git.infosynergi.no/go-modules/isservice
+module github.com/henrikor/isservice
 
 go 1.14
 
