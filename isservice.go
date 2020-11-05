@@ -8,9 +8,10 @@ import (
 	"golang.org/x/sys/windows/svc/mgr"
 )
 
-// Isservice takes two arguments (service, and command)
+// Isservice takes 3 arguments (service, command and repeate - where repeate
+// is number of retries waiting for service to get wanted status 1 min. pr. repeate)
 // Example:
-// Isservice("ismetering", "install")
+// Isservice("ismetering", "install", 10)
 func Isservice(svcName string, cmd string, repeate int) (string, error) {
 	var err error
 	var status string
@@ -57,10 +58,9 @@ func srvstatus(name string, c svc.Cmd) error {
 	status, err := s.Control(c)
 	if err != nil {
 		return fmt.Errorf("could not send control=%d: %v", c, err)
-	} else {
-		fmt.Println("Service status: ")
-		fmt.Sprint(status)
 	}
+	fmt.Println("Service status: ")
+	fmt.Sprint(status)
 	return nil
 
 }
