@@ -23,6 +23,9 @@ func Isservice(svcName string, cmd string, repeate int) (string, error) {
 	case "stop":
 		err = controlService(svcName, svc.Stop, svc.Stopped, repeate)
 		status = " Stopped"
+	case "delete":
+		err = delservice(svcName)
+		status = " Deleted"
 	case "status":
 		err = srvstatus(svcName, svc.Stop)
 	}
@@ -90,6 +93,21 @@ func controlService(name string, c svc.Cmd, to svc.State, repeate int) error {
 		if err != nil {
 			return fmt.Errorf("could not retrieve service status: %v", err)
 		}
+	}
+	return nil
+}
+func delservice(name string) error {
+	m, err := mgr.Connect()
+	if err != nil {
+		return fmt.Errorf("could not connect to service: %v", err)
+	}
+	s, err2 := m.OpenService(name)
+	if err2 != nil {
+		return fmt.Errorf("could not open service: %v", err)
+	}
+	err = s.Delete()
+	if err != nil {
+		return fmt.Errorf("could not delete service: %v", err)
 	}
 	return nil
 }
