@@ -101,10 +101,12 @@ func delservice(name string) error {
 	if err != nil {
 		return fmt.Errorf("could not connect to service: %v", err)
 	}
+	defer m.Disconnect()
 	s, err2 := m.OpenService(name)
 	if err2 != nil {
 		return fmt.Errorf("could not open service: %v", err)
 	}
+	defer s.Close()
 	err = s.Delete()
 	if err != nil {
 		return fmt.Errorf("could not delete service: %v", err)
